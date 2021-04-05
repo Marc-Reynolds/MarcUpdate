@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 public class ReadTaskServletTest {
 
     private static Tomcat tomcat;
-    private static final String WEB_PORT = "9090";
+    private static final String WEB_PORT = "8080";
 
     @BeforeClass
     public static void startServer() throws ServletException, LifecycleException {

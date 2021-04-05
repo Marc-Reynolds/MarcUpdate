@@ -16,7 +16,6 @@ import java.io.IOException;
 public class UpdateTaskServlet extends HttpServlet {
 
     private TaskRepository taskRepository;
-    private Task task;
 
     @Override
     public void init() throws ServletException {
@@ -25,7 +24,7 @@ public class UpdateTaskServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int taskId = Integer.parseInt(request.getParameter("id"));
-        task = taskRepository.read(taskId);
+        Task task = taskRepository.read(taskId);
         if (task == null) {
             throw new TaskNotFoundException("Task with ID '" + taskId + "' not found in To-Do List!");
         } else {
@@ -35,8 +34,11 @@ public class UpdateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        task.setTitle(request.getParameter("title"));
-        task.setPriority(Priority.valueOf(request.getParameter("priority")));
+        Task task = Task.getCopy(
+                Integer.parseInt(request.getParameter("id")),
+                request.getParameter("title"),
+                Priority.valueOf(request.getParameter("priority"))
+        );
         boolean status = taskRepository.update(task);
         if (status) {
             response.sendRedirect("/tasks-list");

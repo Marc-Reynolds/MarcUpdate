@@ -30,7 +30,7 @@ public class TaskRepository {
     public boolean update(Task newTask) {
         Task oldTask = read(newTask.getId());
         if (oldTask != null) {
-            boolean status = all().stream()
+            boolean status = todo.stream()
                     .filter(task -> task.getId() != oldTask.getId())
                     .anyMatch(task -> task.getTitle().equals(newTask.getTitle()));
             if (!status) {
@@ -40,6 +40,21 @@ public class TaskRepository {
         }
         return false;
     }
+
+//    public boolean update(Integer id, String title, Priority priority) {
+//        Task oldTask = read(id);
+//        if (oldTask != null) {
+//            boolean status = todo.stream()
+//                    .filter(task -> task.getId() != oldTask.getId())
+//                    .anyMatch(task -> task.getTitle().equals(title));
+//            if (!status) {
+//                Task newTask = new Task(title, priority);
+//                todo.set(todo.indexOf(oldTask), newTask);
+//                return todo != null;
+//            }
+//        }
+//        return false;
+//    }
 
     public boolean delete(int id) {
         Task task = read(id);
