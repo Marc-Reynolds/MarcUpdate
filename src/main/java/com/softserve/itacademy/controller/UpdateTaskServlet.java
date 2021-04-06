@@ -18,7 +18,7 @@ public class UpdateTaskServlet extends HttpServlet {
     private TaskRepository taskRepository;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         taskRepository = TaskRepository.getTaskRepository();
     }
 
@@ -34,11 +34,11 @@ public class UpdateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Task task = Task.getCopy(
-                Integer.parseInt(request.getParameter("id")),
+        Task task = new Task(
                 request.getParameter("title"),
                 Priority.valueOf(request.getParameter("priority"))
         );
+        task.setId(Integer.parseInt(request.getParameter("id")));
         boolean status = taskRepository.update(task);
         if (status) {
             response.sendRedirect("/tasks-list");

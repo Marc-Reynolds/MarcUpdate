@@ -17,14 +17,12 @@ public class Task {
         id = counter++;
     }
 
-    private Task(int id, String title, Priority priority) {
-        this.id = id;
-        this.title = title;
-        this.priority = priority;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -50,9 +48,5 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", priority=" + priority +
                 '}';
-    }
-
-    public static Task getCopy(int id, String title, Priority priority) {
-        return new Task(id, title, priority);
     }
 }
