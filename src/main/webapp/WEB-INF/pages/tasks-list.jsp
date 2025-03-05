@@ -13,6 +13,8 @@
 <body>
     <%@include file="header.html"%>
 
+    <div class="container">
+
     <h2>List of Tasks</h2>
 
     <%
@@ -23,7 +25,10 @@
         <tr>
             <th>No.</th>
             <th>Name</th>
-            <th>Priority</th>
+            <th>
+                <a href="/tasks-list?sort=priority">Priority</a>
+            </th>
+            <th>Status</th>
             <th colspan="3">Operation</th>
         </tr>
         <%
@@ -31,8 +36,11 @@
         %>
         <tr>
             <td><%= i + 1%></td>
-            <td><%= todo.get(i).getTitle()%></td>
+            <td style="<%= todo.get(i).isDone() ? "text-decoration: line-through;" : "" %>">
+                <%= todo.get(i).getTitle()%>
+            </td>
             <td><%= todo.get(i).getPriority()%></td>
+            <td><%= todo.get(i).isDone() ? "Done" : "Pending" %></td>
             <td>
                 <a href="/read-task?id=<%= todo.get(i).getId()%>">Read</a>
             </td>
@@ -46,8 +54,7 @@
         <%
             }
         %>
-    </table>
-    <%
+    </table>    <%
         } else {
     %>
     <p>You don't have any task!</p>
@@ -56,5 +63,9 @@
         }
     %>
 
+    </div>
+    <footer>
+        &copy; <%= java.time.Year.now().getValue() %> Awesome To-Do List. All rights reserved.
+    </footer>
 </body>
 </html>

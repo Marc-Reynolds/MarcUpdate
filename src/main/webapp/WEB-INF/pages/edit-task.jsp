@@ -13,6 +13,8 @@
 <body>
     <%@include file="header.html"%>
 
+    <div class="container">
+
     <%
         Task task = (Task) request.getAttribute("task");
         String message = (String) request.getAttribute("error");
@@ -74,8 +76,29 @@
                     <input type="reset" value="Clear">
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <label for="description">Description: </label>
+                </td>
+                <td>
+                    <textarea name="description" id="description"><%= task.getDescription() %></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="done">Mark as Done: </label>
+                </td>
+                <td>
+                    <input type="checkbox" name="done" id="done" <%= task.isDone() ? "checked" : "" %>>
+                </td>
+            </tr>
+
         </table>
     </form>
 
+    </div>
+    <footer>
+        &copy; <%= java.time.Year.now().getValue() %> Awesome To-Do List. All rights reserved.
+    </footer>
 </body>
 </html>

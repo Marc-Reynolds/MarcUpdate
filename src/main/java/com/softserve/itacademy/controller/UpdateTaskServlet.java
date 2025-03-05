@@ -34,18 +34,26 @@ public class UpdateTaskServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Task task = new Task(
-                request.getParameter("title"),
-                Priority.valueOf(request.getParameter("priority"))
-        );
-        task.setId(Integer.parseInt(request.getParameter("id")));
-        boolean status = taskRepository.update(task);
-        if (status) {
+        int taskId = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String priorityParam = request.getParameter("priority");
+        Priority priority = Priority.valueOf(priorityParam);
+        boolean done = request.getParameter("done") != null; // Checkbox returns null when unchecked
+
+        // Update the task
+        Task task = taskRepository.read(taskId);
+        if (task != null) {
+            task.setTitle(title);
+            task.setDescription(description);
+            task.setPriority(priority);
+            task.setDone(done); // Set the done status
+            taskRepository.update(task);
             response.sendRedirect("/tasks-list");
         } else {
-            request.setAttribute("error", "Task with a given name already exists!");
-            request.setAttribute("task", task);
+            request.setAttribute("error", "Task not found!");
             request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp").forward(request, response);
         }
     }
+
 }

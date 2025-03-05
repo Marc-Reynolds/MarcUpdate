@@ -29,13 +29,17 @@ public class CreateTaskServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
-        Task task = new Task(title, Priority.valueOf(request.getParameter("priority")));
+        String description = request.getParameter("description"); // Get the description
+        String priorityParam = request.getParameter("priority");
+
+        Task task = new Task(title, description, Priority.valueOf(priorityParam)); // Pass description to Task constructor
         boolean status = taskRepository.create(task);
+
         if (status) {
             response.sendRedirect("/tasks-list");
         } else {
             request.setAttribute("error", "Task with a given name already exists!");
-            request.setAttribute("task", task);
+            request.setAttribute("task", task); // Set the task object including its description
             request.getRequestDispatcher("/WEB-INF/pages/create-task.jsp").forward(request, response);
         }
     }

@@ -8,19 +8,22 @@
     <style>
         <%@include file="../styles/main.css"%>
     </style>
-    
+
 </head>
 <body>
-    <%@include file="header.html"%>
+<%@include file="header.html" %>
+
+<div class="container">
 
     <%
         Task task = (Task) request.getAttribute("task");
         String message = (String) request.getAttribute("error");
     %>
-    
+
     <h2>Create new Task</h2>
-    
-    <p><%=message != null ? message : ""%></p>
+
+    <p><%=message != null ? message : ""%>
+    </p>
 
     <form action="" method="post">
         <table>
@@ -32,11 +35,29 @@
                     <%
                         if (message != null) {
                     %>
-                        <input type="text" name="title" id="title" value="<%= task.getTitle()%>" autocomplete="off">
+                    <input type="text" name="title" id="title" value="<%= task.getTitle()%>" autocomplete="off">
                     <%
-                        } else {
+                    } else {
                     %>
-                        <input type="text" name="title" id="title" autocomplete="off">
+                    <input type="text" name="title" id="title" autocomplete="off">
+                    <%
+                        }
+                    %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="description">Description: </label>
+                </td>
+                <td>
+                    <%
+                        if (message != null) {
+                    %>
+                    <textarea name="description" id="description"><%= task.getDescription() %></textarea>
+                    <%
+                    } else {
+                    %>
+                    <textarea name="description" id="description"></textarea>
                     <%
                         }
                     %>
@@ -98,5 +119,9 @@
             </tr>
         </table>
     </form>
+</div>
+<footer>
+    &copy; <%= java.time.Year.now().getValue() %> Awesome To-Do List. All rights reserved.
+</footer>
 </body>
 </html>
