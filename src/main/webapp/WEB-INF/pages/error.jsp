@@ -13,9 +13,9 @@
 <body>
 
     <%
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
-        String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
+        Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
+        Exception exception = (Exception) request.getAttribute("jakarta.servlet.error.exception");
+        String requestUri = (String) request.getAttribute("jakarta.servlet.error.request_uri");
     %>
 
     <%@ include file="header.html"%>

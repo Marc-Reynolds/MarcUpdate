@@ -19,10 +19,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class UpdateTaskServletTest {
     private static final String WEB_PORT = "8080";
 
     @BeforeClass
-    public static void startServer() throws ServletException, LifecycleException {
+    public static void startServer() throws ServletException, LifecycleException, javax.servlet.ServletException {
         String webappDirLocation = "src/main/webapp/";
         tomcat = new Tomcat();
 
